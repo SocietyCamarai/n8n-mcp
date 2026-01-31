@@ -53,22 +53,22 @@ A production-ready MCP (Model Context Protocol) server that provides comprehensi
 
 ### Core Capabilities
 
-| Feature | Description |
-|---------|-------------|
-| **Workflow CRUD** | Create, read, update, delete workflows with validation |
-| **Partial Updates** | Incremental workflow updates with diff operations |
-| **Workflow Validation** | Validate structure, nodes, connections, expressions |
-| **Autofix** | Automatically fix common workflow errors |
-| **Version Control** | Manage workflow version history, rollback, prune |
-| **Execution Management** | List, get details, delete workflow executions |
-| **Trigger Workflows** | Test workflows via webhook/form/chat triggers |
-| **Credential Management** | Create, update, delete, transfer credentials |
-| **Tag Management** | Organize workflows with tags |
-| **User Management** | List and get user information |
-| **Node Discovery** | Search n8n nodes, get node details, validate nodes |
-| **Template Deployment** | Deploy workflow templates from library |
-| **Health Checks** | Monitor n8n instance health and API connectivity |
-| **Audit Reports** | Generate comprehensive audit reports |
+| Feature                   | Description                                            |
+| ------------------------- | ------------------------------------------------------ |
+| **Workflow CRUD**         | Create, read, update, delete workflows with validation |
+| **Partial Updates**       | Incremental workflow updates with diff operations      |
+| **Workflow Validation**   | Validate structure, nodes, connections, expressions    |
+| **Autofix**               | Automatically fix common workflow errors               |
+| **Version Control**       | Manage workflow version history, rollback, prune       |
+| **Execution Management**  | List, get details, delete workflow executions          |
+| **Trigger Workflows**     | Test workflows via webhook/form/chat triggers          |
+| **Credential Management** | Create, update, delete, transfer credentials           |
+| **Tag Management**        | Organize workflows with tags                           |
+| **User Management**       | List and get user information                          |
+| **Node Discovery**        | Search n8n nodes, get node details, validate nodes     |
+| **Template Deployment**   | Deploy workflow templates from library                 |
+| **Health Checks**         | Monitor n8n instance health and API connectivity       |
+| **Audit Reports**         | Generate comprehensive audit reports                   |
 
 ### Technical Features
 
@@ -176,14 +176,13 @@ n8n-mcp/
 - **⚠️ REQUIRED: n8n-nodes-mcp Node** - This MCP server requires the n8n community nodes to be installed in your n8n instance. Without these community nodes, the MCP server will not function properly as it relies on their availability for certain operations.
 
   **How to Install n8n-nodes-mcp:**
-  
   1. **For Self-Hosted n8n:**
      - Go to your n8n instance's settings
      - Navigate to **Community Nodes**
      - Search for "n8n-nodes-mcp" or go to the package repository
      - Install the package by providing the repository URL or uploading the package file
-  
   2. **For Docker n8n:**
+
      ```bash
      # Run n8n container
      docker run -it --rm \
@@ -192,19 +191,19 @@ n8n-mcp/
        -e N8N_BASIC_AUTH_PASSWORD=password \
        -e N8N_HOST=http://n8n:5678 \
        n8nio/n8n:latest
-   
+
      # Then install via CLI
      docker exec -it n8n npm install n8n-nodes-mcp
      ```
-  
+
   3. **For n8n Cloud:**
      - Community nodes can only be installed in self-hosted instances
      - You will need to migrate to a self-hosted setup if using n8n Cloud
-  
+
   **Verification:**
   - After installation, verify the nodes are available in n8n
   - Check that nodes like "AI Agent", "MCP Tools", "Workflow Assistant" are visible in the node palette
-  
+
   **Why This is Required:**
   - The MCP server is designed to work with these specific community nodes
   - Many tools validate against node schemas and parameters
@@ -213,6 +212,7 @@ n8n-mcp/
 ### 5-Minute Setup
 
 1. **Clone and Install**
+
    ```bash
    git clone https://github.com/your-org/n8n-mcp.git
    cd n8n-mcp
@@ -220,6 +220,7 @@ n8n-mcp/
    ```
 
 2. **Configure Environment**
+
    ```bash
    # Create .env file
    cat > .env << EOF
@@ -229,6 +230,7 @@ n8n-mcp/
    ```
 
 3. **Build and Run**
+
    ```bash
    npm run build
    npm start
@@ -236,6 +238,7 @@ n8n-mcp/
 
 4. **Configure Claude Desktop**
    Add to Claude Desktop config:
+
    ```json
    {
      "mcpServers": {
@@ -257,22 +260,26 @@ n8n-mcp/
 ### Local Development
 
 #### 1. Clone Repository
+
 ```bash
 git clone https://github.com/your-org/n8n-mcp.git
 cd n8n-mcp
 ```
 
 #### 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
 #### 3. Build Project
+
 ```bash
 npm run build
 ```
 
 #### 4. Run Server (Stdio Mode)
+
 ```bash
 # With environment variables
 N8N_API_URL=https://your-n8n.com N8N_API_KEY=xxx npm start
@@ -282,6 +289,7 @@ npm start
 ```
 
 #### 5. Run Server (HTTP Mode)
+
 ```bash
 # With environment variables
 N8N_API_URL=https://your-n8n.com N8N_API_KEY=xxx npm run start:http
@@ -292,15 +300,15 @@ MCP_TRANSPORT=http MCP_API_KEY=your-secret-key npm run start:http
 
 ### Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run build` | Compile TypeScript to JavaScript |
-| `npm run dev` | Watch mode for development |
-| `npm start` | Start server in stdio mode |
-| `npm run start:http` | Start server in HTTP mode |
+| Script                | Description                           |
+| --------------------- | ------------------------------------- |
+| `npm run build`       | Compile TypeScript to JavaScript      |
+| `npm run dev`         | Watch mode for development            |
+| `npm start`           | Start server in stdio mode            |
+| `npm run start:http`  | Start server in HTTP mode             |
 | `npm run start:stdio` | Start server in stdio mode (explicit) |
-| `npm run lint` | Run TypeScript type checking |
-| `npm run clean` | Clean dist directory |
+| `npm run lint`        | Run TypeScript type checking          |
+| `npm run clean`       | Clean dist directory                  |
 
 ---
 
@@ -383,7 +391,7 @@ docker run -d \
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   n8n-mcp:
@@ -401,7 +409,13 @@ services:
     volumes:
       - ./dist:/app/dist
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -533,7 +547,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # WebSocket support for SSE
         proxy_read_timeout 86400s;
         proxy_send_timeout 86400s;
@@ -613,15 +627,115 @@ pm2 monit
 
 ### Environment Variables
 
-| Variable | Required | Default | Description |
-|----------|-----------|---------|-------------|
-| `N8N_API_URL` | Yes | - | Base URL of your n8n instance (e.g., `https://n8n.your-domain.com`) |
-| `N8N_API_KEY` | Yes | - | n8n API key for authentication |
-| `MCP_TRANSPORT` | No | `stdio` | Transport mode: `stdio` or `http` |
-| `PORT` | No | `3000` | Port for HTTP mode |
-| `MCP_API_KEY` | No | - | Optional API key for HTTP mode authentication |
-| `N8N_HOST` | No | - | Deprecated: Use `N8N_API_URL` |
-| `N8N_KEY` | No | - | Deprecated: Use `N8N_API_KEY` |
+| Variable        | Required | Default | Description                                                         |
+| --------------- | -------- | ------- | ------------------------------------------------------------------- |
+| `N8N_API_URL`   | Yes      | -       | Base URL of your n8n instance (e.g., `https://n8n.your-domain.com`) |
+| `N8N_API_KEY`   | Yes      | -       | n8n API key for authentication                                      |
+| `MCP_TRANSPORT` | No       | `stdio` | Transport mode: `stdio` or `http`                                   |
+| `PORT`          | No       | `3000`  | Port for HTTP mode                                                  |
+| `MCP_API_KEY`   | No       | -       | Optional API key for HTTP mode authentication                       |
+| `N8N_HOST`      | No       | -       | Deprecated: Use `N8N_API_URL`                                       |
+| `N8N_KEY`       | No       | -       | Deprecated: Use `N8N_API_KEY`                                       |
+
+### Configuration Methods
+
+There are two ways to configure environment variables for n8n-mcp:
+
+#### Method 1: .env File (Recommended for local development)
+
+Create a `.env` file in the project root:
+
+```bash
+cat > .env << EOF
+N8N_API_URL=https://n8n.your-domain.com
+N8N_API_KEY=n8n_api_xxxxxxxxxxxxxxxx
+MCP_TRANSPORT=http
+PORT=3000
+MCP_API_KEY=your-secret-http-key
+EOF
+```
+
+**Pros:**
+
+- Easy to manage for local development
+- Supports version control (use .env.example as template)
+- Can be shared with team (excluding actual secrets)
+
+**Cons:**
+
+- Requires file in project directory
+- Not ideal for production deployments
+
+#### Method 2: Direct Configuration (Recommended for Claude Desktop)
+
+Pass environment variables directly in the MCP server configuration. This is the **recommended approach** for Claude Desktop as it keeps all configuration in one place without requiring additional files.
+
+**Example for Claude Desktop (`claude_desktop_config.json`):**
+
+```json
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "command": "node",
+      "args": ["/absolute/path/to/n8n-mcp/dist/index.js"],
+      "env": {
+        "N8N_API_URL": "https://xxxxx.es",
+        "N8N_API_KEY": "xxx.xxx.xx",
+        "MCP_TRANSPORT": "stdio"
+      },
+      "disabled": false
+    }
+  }
+}
+```
+
+**Additional Configuration Options (all optional):**
+
+```json
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "command": "node",
+      "args": ["/absolute/path/to/n8n-mcp/dist/index.js"],
+      "env": {
+        "N8N_API_URL": "https://your-n8n-instance.com",
+        "N8N_API_KEY": "your-api-key",
+
+        // Optional: HTTP mode configuration
+        "MCP_TRANSPORT": "http",
+        "PORT": "3000",
+        "MCP_API_KEY": "your-secret-http-key",
+
+        // Optional: Node environment
+        "NODE_ENV": "production"
+      },
+      "disabled": false
+    }
+  }
+}
+```
+
+**Pros:**
+
+- All configuration in one file
+- No need for .env file
+- Ideal for production and Claude Desktop
+- Can be version controlled (with placeholders)
+
+**Cons:**
+
+- Secrets in config file (use secure storage for production)
+- Requires restart of Claude Desktop to reload configuration
+
+#### Choosing the Right Method
+
+| Scenario                           | Recommended Method                     | Why                                         |
+| ---------------------------------- | -------------------------------------- | ------------------------------------------- |
+| Claude Desktop (local development) | Method 2 (Direct Config)               | Single config file, no .env needed          |
+| Claude Desktop (production)        | Method 2 (Direct Config)               | Centralized configuration, easier to manage |
+| Docker deployment                  | Method 1 (.env) + docker-compose       | Docker best practice, secrets management    |
+| Linux server deployment            | Method 1 (.env) or systemd environment | Easier service configuration                |
+| Development testing                | Method 1 (.env)                        | Quick changes, easier debugging             |
 
 ### Getting n8n API Key
 
@@ -659,7 +773,6 @@ MCP_API_KEY=your-secret-http-key
 ### Claude Desktop
 
 1. **Locate Config File**:
-
    - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
    - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
    - **Linux**: `~/.config/Claude/claude_desktop_config.json`
@@ -681,6 +794,8 @@ MCP_API_KEY=your-secret-http-key
    }
    ```
 
+   💡 **Tip: Environment variables can be passed directly in the `env` section as shown above, without needing a separate `.env` file. This is the recommended approach for Claude Desktop as it keeps all configuration in one place.**
+
 3. **Restart Claude Desktop**
 
 4. **Verify Connection**: In Claude, ask "What n8n workflows are available?"
@@ -690,17 +805,20 @@ MCP_API_KEY=your-secret-http-key
 If running in HTTP mode (cloud deployment), you can use the HTTP endpoints:
 
 #### Health Check
+
 ```bash
 curl http://localhost:3000/health
 ```
 
 #### List Tools
+
 ```bash
 curl -H "x-api-key: your-http-secret" \
   http://localhost:3000/mcp/tools
 ```
 
 #### Call Tool (POST)
+
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
@@ -716,15 +834,15 @@ curl -X POST \
 
 ```javascript
 // Connect via Server-Sent Events
-const eventSource = new EventSource('http://localhost:3000/mcp');
+const eventSource = new EventSource("http://localhost:3000/mcp");
 
 eventSource.onmessage = (event) => {
   const data = JSON.parse(event.data);
-  console.log('MCP Event:', data);
+  console.log("MCP Event:", data);
 };
 
 eventSource.onerror = (error) => {
-  console.error('SSE Error:', error);
+  console.error("SSE Error:", error);
 };
 ```
 
@@ -734,73 +852,73 @@ eventSource.onerror = (error) => {
 
 ### Workflow Management (10 tools)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
-| `n8n_create_workflow` | Create new workflow | name, nodes[], connections{}, settings{} | workflowId, name |
-| `n8n_get_workflow` | Get workflow details | id, mode(full/details/structure/minimal) | workflow data |
-| `n8n_update_full_workflow` | Replace entire workflow | id, nodes[], connections{}, settings{} | workflowId, name |
-| `n8n_update_partial_workflow` | Incremental update | id, operations[] | applied, failed |
-| `n8n_delete_workflow` | Delete workflow | id | success, workflowId |
-| `n8n_list_workflows` | List workflows | limit, cursor, active, tags | data[], nextCursor |
-| `n8n_validate_workflow` | Validate workflow | id, options | valid, errors, warnings |
-| `n8n_autofix_workflow` | Auto-fix errors | id, applyFixes, fixTypes | fixesFound, fixesApplied |
-| `n8n_test_workflow` | Test/trigger workflow | workflowId, triggerType, data | triggerInfo |
-| `n8n_executions` | Manage executions | action, id, mode, etc. | execution data |
-| `n8n_workflow_versions` | Version control | mode, workflowId, versionId | versions/details |
-| `n8n_health_check` | Health check | mode, verbose | status, version, features |
+| Tool                          | Purpose                 | Input                                    | Output                    |
+| ----------------------------- | ----------------------- | ---------------------------------------- | ------------------------- |
+| `n8n_create_workflow`         | Create new workflow     | name, nodes[], connections{}, settings{} | workflowId, name          |
+| `n8n_get_workflow`            | Get workflow details    | id, mode(full/details/structure/minimal) | workflow data             |
+| `n8n_update_full_workflow`    | Replace entire workflow | id, nodes[], connections{}, settings{}   | workflowId, name          |
+| `n8n_update_partial_workflow` | Incremental update      | id, operations[]                         | applied, failed           |
+| `n8n_delete_workflow`         | Delete workflow         | id                                       | success, workflowId       |
+| `n8n_list_workflows`          | List workflows          | limit, cursor, active, tags              | data[], nextCursor        |
+| `n8n_validate_workflow`       | Validate workflow       | id, options                              | valid, errors, warnings   |
+| `n8n_autofix_workflow`        | Auto-fix errors         | id, applyFixes, fixTypes                 | fixesFound, fixesApplied  |
+| `n8n_test_workflow`           | Test/trigger workflow   | workflowId, triggerType, data            | triggerInfo               |
+| `n8n_executions`              | Manage executions       | action, id, mode, etc.                   | execution data            |
+| `n8n_workflow_versions`       | Version control         | mode, workflowId, versionId              | versions/details          |
+| `n8n_health_check`            | Health check            | mode, verbose                            | status, version, features |
 
 ### Credential Management (5 tools)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
-| `n8n_create_credential` | Create credential | name, type, data | id, name |
-| `n8n_update_credential` | Update credential | id, name, type, data | id, name |
-| `n8n_delete_credential` | Delete credential | id | success |
-| `n8n_get_credential_schema` | Get schema | credentialTypeName | schema data |
-| `n8n_transfer_credential` | Transfer credential | id, destinationProjectId | success |
+| Tool                        | Purpose             | Input                    | Output      |
+| --------------------------- | ------------------- | ------------------------ | ----------- |
+| `n8n_create_credential`     | Create credential   | name, type, data         | id, name    |
+| `n8n_update_credential`     | Update credential   | id, name, type, data     | id, name    |
+| `n8n_delete_credential`     | Delete credential   | id                       | success     |
+| `n8n_get_credential_schema` | Get schema          | credentialTypeName       | schema data |
+| `n8n_transfer_credential`   | Transfer credential | id, destinationProjectId | success     |
 
 ### Tag Management (4 tools)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
-| `n8n_list_tags` | List tags | limit, cursor | data[], nextCursor |
-| `n8n_create_tag` | Create tag | name | id, name |
-| `n8n_update_tag` | Update tag | id, name | id, name |
-| `n8n_delete_tag` | Delete tag | id | success |
+| Tool             | Purpose    | Input         | Output             |
+| ---------------- | ---------- | ------------- | ------------------ |
+| `n8n_list_tags`  | List tags  | limit, cursor | data[], nextCursor |
+| `n8n_create_tag` | Create tag | name          | id, name           |
+| `n8n_update_tag` | Update tag | id, name      | id, name           |
+| `n8n_delete_tag` | Delete tag | id            | success            |
 
 ### User Management (2 tools)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
+| Tool             | Purpose    | Input         | Output             |
+| ---------------- | ---------- | ------------- | ------------------ |
 | `n8n_list_users` | List users | limit, cursor | data[], nextCursor |
-| `n8n_get_user` | Get user | id | user data |
+| `n8n_get_user`   | Get user   | id            | user data          |
 
 ### Node Discovery (3 tools)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
-| `search_nodes` | Search nodes | query, limit, category | nodes[] |
-| `get_node` | Get node details | name, includeParameters | node data |
-| `validate_node` | Validate node | nodeType, parameters | valid, errors |
+| Tool            | Purpose          | Input                   | Output        |
+| --------------- | ---------------- | ----------------------- | ------------- |
+| `search_nodes`  | Search nodes     | query, limit, category  | nodes[]       |
+| `get_node`      | Get node details | name, includeParameters | node data     |
+| `validate_node` | Validate node    | nodeType, parameters    | valid, errors |
 
 ### Template Management (3 tools)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
-| `get_template` | Get template | id | template data |
-| `search_templates` | Search templates | query, category, limit | templates[] |
-| `n8n_deploy_template` | Deploy template | templateId, name, customizations | workflowId |
+| Tool                  | Purpose          | Input                            | Output        |
+| --------------------- | ---------------- | -------------------------------- | ------------- |
+| `get_template`        | Get template     | id                               | template data |
+| `search_templates`    | Search templates | query, category, limit           | templates[]   |
+| `n8n_deploy_template` | Deploy template  | templateId, name, customizations | workflowId    |
 
 ### Audit Tools (1 tool)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
+| Tool                 | Purpose        | Input                          | Output       |
+| -------------------- | -------------- | ------------------------------ | ------------ |
 | `n8n_generate_audit` | Generate audit | scope, filters, includeDetails | audit report |
 
 ### Documentation (1 tool)
 
-| Tool | Purpose | Input | Output |
-|------|---------|-------|--------|
+| Tool                  | Purpose       | Input          | Output        |
+| --------------------- | ------------- | -------------- | ------------- |
 | `tools_documentation` | Get tool docs | toolName, mode | documentation |
 
 **Total Tools: 29**
@@ -813,10 +931,11 @@ eventSource.onerror = (error) => {
 
 ```javascript
 // In Claude, ask:
-"Create a workflow named 'Hello World' with a webhook trigger and a HTTP request node that sends a GET request to https://api.example.com"
+"Create a workflow named 'Hello World' with a webhook trigger and a HTTP request node that sends a GET request to https://api.example.com";
 ```
 
 The AI will call:
+
 ```javascript
 n8n_create_workflow({
   name: "Hello World",
@@ -829,8 +948,8 @@ n8n_create_workflow({
       position: [250, 300],
       parameters: {
         httpMethod: "POST",
-        path: "hello"
-      }
+        path: "hello",
+      },
     },
     {
       id: "http_1",
@@ -840,26 +959,27 @@ n8n_create_workflow({
       position: [450, 300],
       parameters: {
         method: "GET",
-        url: "https://api.example.com"
-      }
-    }
+        url: "https://api.example.com",
+      },
+    },
   ],
   connections: {
-    "Webhook": {
-      "main": [[{node: "HTTP Request", type: "main", index: 0}]]
-    }
-  }
-})
+    Webhook: {
+      main: [[{ node: "HTTP Request", type: "main", index: 0 }]],
+    },
+  },
+});
 ```
 
 ### Example 2: List All Workflows
 
 ```javascript
 // In Claude, ask:
-"List all workflows in n8n"
+"List all workflows in n8n";
 ```
 
 Response:
+
 ```json
 {
   "data": [
@@ -880,10 +1000,11 @@ Response:
 
 ```javascript
 // In Claude, ask:
-"Show me the structure of workflow 'abc123' with just nodes and connections"
+"Show me the structure of workflow 'abc123' with just nodes and connections";
 ```
 
 Response:
+
 ```json
 {
   "id": "abc123",
@@ -899,7 +1020,7 @@ Response:
   ],
   "connections": {
     "Webhook": {
-      "main": [[{"node": "HTTP Request", "type": "main", "index": 0}]]
+      "main": [[{ "node": "HTTP Request", "type": "main", "index": 0 }]]
     }
   }
 }
@@ -909,10 +1030,11 @@ Response:
 
 ```javascript
 // In Claude, ask:
-"Validate workflow 'abc123' and check for errors"
+"Validate workflow 'abc123' and check for errors";
 ```
 
 Response:
+
 ```json
 {
   "valid": false,
@@ -946,10 +1068,11 @@ Response:
 
 ```javascript
 // In Claude, ask:
-"Disable node 'Function' in workflow 'abc123'"
+"Disable node 'Function' in workflow 'abc123'";
 ```
 
 Response:
+
 ```json
 {
   "success": true,
@@ -971,10 +1094,11 @@ Response:
 
 ```javascript
 // In Claude, ask:
-"Check n8n instance health"
+"Check n8n instance health";
 ```
 
 Response:
+
 ```json
 {
   "status": "healthy",
@@ -989,10 +1113,7 @@ Response:
     "responseTimeMs": 150,
     "cacheHitRate": "85%"
   },
-  "nextSteps": [
-    "Instance is healthy",
-    "n8n version is up to date"
-  ]
+  "nextSteps": ["Instance is healthy", "n8n version is up to date"]
 }
 ```
 
@@ -1000,10 +1121,11 @@ Response:
 
 ```javascript
 // In Claude, ask:
-"Generate an audit report of all workflows"
+"Generate an audit report of all workflows";
 ```
 
 Response:
+
 ```json
 {
   "summary": {
@@ -1086,6 +1208,7 @@ npm run inspector
 #### Issue: "Error: Missing n8n API URL configuration"
 
 **Solution**:
+
 ```bash
 # Set N8N_API_URL environment variable
 export N8N_API_URL=https://your-n8n-instance.com
@@ -1097,6 +1220,7 @@ echo "N8N_API_URL=https://your-n8n-instance.com" > .env
 #### Issue: "Error: Missing n8n API key"
 
 **Solution**:
+
 ```bash
 # Generate API key in n8n Settings → API
 # Then set environment variable
@@ -1109,6 +1233,7 @@ echo "N8N_API_KEY=n8n_api_xxxxxxxxxxxxxxxx" >> .env
 #### Issue: Claude Desktop doesn't recognize the MCP server
 
 **Solution**:
+
 1. Check config file path is correct
 2. Verify absolute path to `dist/index.js`
 3. Check environment variables are set in config
@@ -1117,6 +1242,7 @@ echo "N8N_API_KEY=n8n_api_xxxxxxxxxxxxxxxx" >> .env
 #### Issue: Docker container exits immediately
 
 **Solution**:
+
 ```bash
 # Check logs
 docker logs n8n-mcp
@@ -1130,6 +1256,7 @@ docker logs n8n-mcp
 #### Issue: "401 Unauthorized" errors
 
 **Solution**:
+
 - Verify API key is correct
 - Check API key hasn't expired
 - Ensure IP is whitelisted (if applicable)
@@ -1138,13 +1265,15 @@ docker logs n8n-mcp
 #### Issue: "n8n-nodes-mcp node not found"
 
 **Solution**:
+
 - ⚠️ **CRITICAL: This MCP server REQUIRES the n8n community node `n8n-nodes-mcp` to be installed in your n8n instance**
-- **Install via n8n UI**: 
+- **Install via n8n UI**:
   1. Go to Settings → Community Nodes
   2. Search for "n8n-nodes-mcp" or "AI Agent"
   3. Click Install on the found package
   4. Restart n8n instance
 - **Install via CLI (Docker)**:
+
   ```bash
   # Run n8n container
   docker run -it --rm \
@@ -1154,10 +1283,11 @@ docker logs n8n-mcp
     -e N8N_BASIC_AUTH_PASSWORD=password \
     -e N8N_HOST=http://n8n:5678 \
     n8nio/n8n:latest
-  
+
   # Then install the package
   docker exec -it n8n npm install n8n-nodes-mcp
   ```
+
 - **Verify Installation**:
   1. After installation, check node palette
   2. Look for nodes like "AI Agent", "MCP Tools", "Workflow Assistant"
@@ -1174,6 +1304,7 @@ docker logs n8n-mcp
 #### Issue: Build errors with TypeScript
 
 **Solution**:
+
 ```bash
 # Clean and rebuild
 npm run clean
