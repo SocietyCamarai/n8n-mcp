@@ -1,0 +1,76 @@
+# Docker Compose for n8n-mcp
+# Run with: docker-compose up -d
+# View logs: docker-compose logs -f
+
+version: '3.8'
+
+services:
+  # n8n-mcp server service
+  n8n-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: n8n-mcp:latest
+    container_name: n8n-mcp
+    restart: unless-stopped
+    
+    # Ports mapping (HTTP mode)
+    ports:
+      - "3000:3000"
+    
+    # Environment variables
+    # You can also use a .env file: docker-compose --env-file .env up
+    environment:
+      # n8n API Configuration (REQUIRED)
+      - N8N_API_URL=${N8N_API_URL}
+      - N8N_API_KEY=${N8N_API_KEY}
+      
+      # MCP Server Configuration
+      - MCP_TRANSPORT=${MCP_TRANSPORT:-http}
+      - PORT=${PORT:-3000}
+      
+      # Optional: API key for HTTP mode authentication
+      - MCP_API_KEY=${MCP_API_KEY:-}
+      
+      # Optional: Node environment
+      - NODE_ENV=${NODE_ENV:-production}
+    
+    # Volumes (optional - for custom configurations)
+    # Uncomment if you want to mount custom configs
+    # volumes:
+    #   - ./config:/app/config
+    
+    # Health check
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    
+    # Resource limits (optional - adjust based on your server)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '0.5'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.25'
+    #       memory: 256M
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "n8n-mcp"
+    
+    # Network (optional - use custom network)
+    # networks:
+    #   - mcp-network
+
+# Optional: Custom network
+# networks:
+#   mcp-network:
+#     driver: bridge
